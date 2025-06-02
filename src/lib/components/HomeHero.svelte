@@ -104,12 +104,12 @@
       }
       :global(.actions) {
         align-items: center;
-        .action {
+        & .action {
           height: 3rem;
           transition: box-shadow 0.4s;
-          &:hover {
-            box-shadow: 0 0 16px 4px #346;
-          }
+        }
+        & .action:hover {
+          box-shadow: 0 0 16px 4px #346;
         }
       }
     }
