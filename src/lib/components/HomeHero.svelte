@@ -102,12 +102,12 @@
         background-color: #121212;
         mask: radial-gradient(#000 50%, #0000 70%);
       }
-      .action {
+      :global(.action) {
         height: 3rem;
         transition: box-shadow 0.4s;
-      }
-      .action:hover {
-        box-shadow: 0 0 16px 4px #346;
+        &:hover {
+          box-shadow: 0 0 16px 4px #346;
+        }
       }
     }
     @media (max-width: 960px) {
@@ -131,9 +131,6 @@
             & h1 {
               font-size: min(11vw, 4rem);
             }
-          }
-          .action {
-            margin: 0 auto;
           }
         }
       }
