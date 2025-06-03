@@ -3,7 +3,6 @@ import { dev } from '$app/environment'
 
 const minification_options = {
   collapseWhitespace: true,
-  collapseInlineTagWhitespace: true,
   removeComments: true,
   ignoreCustomComments: [/^#/],
   minifyCSS: true,
