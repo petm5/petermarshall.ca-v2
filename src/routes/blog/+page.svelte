@@ -1,6 +1,11 @@
 <script>
 	export let data;
+	import { title } from '$lib/site.json';
 </script>
+
+<svelte:head>
+	<title>Blog - {title}</title>
+</svelte:head>
 
 {#if data.posts.length > 0}
 <h1>Blog</h1>
