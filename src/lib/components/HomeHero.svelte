@@ -103,7 +103,6 @@
         mask: radial-gradient(#000 50%, #0000 70%);
       }
       :global(.actions) {
-        align-items: center;
         & .action {
           height: 3rem;
           transition: box-shadow 0.4s;
@@ -134,6 +133,9 @@
             & h1 {
               font-size: min(11vw, 4rem);
             }
+          }
+          :global(.actions) {
+            align-items: center;
           }
         }
       }
