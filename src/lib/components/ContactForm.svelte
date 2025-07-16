@@ -1,4 +1,4 @@
-<form action="https://contact.petermarshall.ca/" method="post" enctype="multipart/form-data">
+<form action="https://formspree.io/f/xldlealb" method="post" enctype="multipart/form-data">
   <p>
     <label for="name">Name</label>
     <input name="name" required />
