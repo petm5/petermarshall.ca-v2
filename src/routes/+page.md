@@ -14,7 +14,7 @@ description: Explore the world of creating digital experiences that resonate dee
 
 <BannerImage />
 
-This is Peter Marshall's tech and web development blog, where we explore the intricate world of creating *secure* and *trustworthy* applications.
+This is Peter Marshall's homepage, where we explore the intricate world of creating *secure* and *trustworthy* applications.
 
 I believe that software development is more than just writing code; it's about crafting experiences that resonate deeply with end users. Whether I'm working on a new feature or maintaining existing functionality, my goal is always to create solutions that are intuitive, reliable, and sustainable.
 
