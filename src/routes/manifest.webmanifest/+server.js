@@ -1,7 +1,7 @@
 import { title, tagline } from '$lib/site.json'
 
-import icon_192 from '$lib/assets/app-icon.png?w=192&format=png'
-import icon_512 from '$lib/assets/app-icon.png?w=512&format=png'
+import icon_192 from '$lib/assets/app-icon.png?w=192&format=avif&quality=90'
+import icon_512 from '$lib/assets/app-icon.png?w=512&format=avif&quality=90'
 
 export const prerender = true
 
@@ -23,12 +23,12 @@ const manifest = {
     {
       src: icon_192,
       sizes: "192x192",
-      type: "image/png"
+      type: "image/avif"
     },
     {
       src: icon_512,
       sizes: "512x512",
-      type: "image/png"
+      type: "image/avif"
     }
     ],
   display: "minimal-ui"
