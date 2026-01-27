@@ -6,15 +6,25 @@
 <header>
   <div class="content">
     <Logo />
-    <nav>
-      <ul>
-        {#each navItems as item}
-          <li>
-            <a href={item.href}>{item.name}</a>
-          </li>
-        {/each}
-      </ul>
-    </nav>
+    <div class="menu-section">
+      <div class="menu" tabindex="-1">
+        <div class="expand"></div>
+        <div class="item-container">
+          <div class="items">
+            <nav>
+              <ul>
+                {#each navItems as item}
+                  <li>
+                    <a href={item.href}>{item.name}</a>
+                  </li>
+                {/each}
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="close" tabindex="-1"></div>
+    </div>
   </div>
 </header>
 
@@ -60,11 +70,12 @@
     z-index: 1;
     text-shadow: 0 0 3px #0008;
   }
+  .menu-section {
+    margin-left: auto;
+  }
   nav {
     display: flex;
-    margin-left: auto;
     line-height: 1;
-    
   }
   ul {
     display: inline-block;
@@ -81,5 +92,72 @@
   a {
     color: inherit;
     text-decoration: none;
+  }
+  @media (max-width: 750px) {
+    .content {
+      padding: 1rem;
+    }
+    .expand {
+      display: grid;
+      &::after {
+        content: "≡";
+        font-size: 2rem;
+      }
+    }
+    .close {
+      display: none;
+      &::after {
+        content: "×";
+        font-size: 1.6rem;
+      }
+    }
+    .close, .expand {
+      width: 2rem;
+      height: 2rem;
+      place-content: center;
+      cursor: pointer;
+      &::after {
+        text-rendering: geometricprecision;
+        width: 3.5rem;
+        line-height: 3.5rem;
+        text-align: center;
+      }
+    }
+    .item-container {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 3.5rem;
+    }
+    .menu:focus-within {
+      .item-container {
+        display: block;
+      }
+      .expand {
+        display: none;
+      }
+      & + .close {
+        display: grid;
+      }
+    }
+    .items {
+      display: flex;
+      flex-direction: column;
+      padding: 1.8rem 1.4rem;
+      gap: 0.4rem;
+      background: #3334;
+      backdrop-filter: contrast(0.9) brightness(0.7) saturate(1.5) blur(40px);
+      box-shadow: 0px 0px 1.6rem #0004 inset, 0 1px 1px 0 #fff4;
+    }
+    nav, ul {
+      display: contents;
+    }
+    li {
+      display: block;
+      margin-left: 0;
+      padding: 0.6rem;
+      font-weight: bold;
+    }
   }
 </style>
