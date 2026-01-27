@@ -1,19 +1,32 @@
 <script>
-  import logo from '$lib/assets/logo-transparent.svg';
+  import logo from '$lib/assets/logo-glow.png';
+  import { title } from '$lib/site.json';
 </script>
 
-<a href="/" class="logo">
-  <img alt="Logo" src={logo} />
-</a>
+<div class="logo">
+  <a href="/">
+    <img alt="Logo" src={logo} />
+    <p>{title}</p>
+  </a>
+</div>
 
 <style>
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: contents;
+  }
   .logo {
-    display: inline-block;
-    place-content: center;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: bold;
   }
   img {
     display: block;
     margin: 0;
     height: 36px;
+    transform: scale(260%);
   }
 </style>
