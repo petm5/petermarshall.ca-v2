@@ -40,8 +40,7 @@ const generate = async () => {
 
   const options = {
     // TODO: Use Rabin chunker
-    rawLeaves: true,
-    wrapWithDirectory: true
+    rawLeaves: true
   };
 
   let rootCid;
