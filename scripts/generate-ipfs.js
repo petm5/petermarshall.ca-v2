@@ -1,4 +1,5 @@
 import { importer } from 'ipfs-unixfs-importer';
+import { rabin } from 'ipfs-unixfs-importer/chunker';
 import { BlackHoleBlockstore } from 'blockstore-core';
 import fs from 'fs/promises';
 import path from 'path';
@@ -39,7 +40,11 @@ const generate = async () => {
   console.log(`🚀 Processing ${source.length} files from ${blocksDir.toString()}...`);
 
   const options = {
-    // TODO: Use Rabin chunker
+    chunker: rabin({
+      minChunkSize: 8192,
+      avgChunkSize: 16384,
+      maxChunkSize: 32768,
+    }),
     rawLeaves: true
   };
 
