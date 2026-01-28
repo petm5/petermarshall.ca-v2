@@ -1,9 +1,10 @@
+import fs from 'fs/promises'
 import path from 'node:path'
 import { glob } from 'glob'
 import { CID } from 'multiformats/cid'
 import * as Block from 'multiformats/block'
 import { sha256 } from 'multiformats/hashes/sha2'
-import { BlockView } from 'multiformats'
+import type { BlockView } from 'multiformats/block/interface'
 import * as dagJson from '@ipld/dag-json'
 import { createEd25519PeerId } from '@libp2p/peer-id-factory'
 
@@ -16,6 +17,7 @@ const webHost = new URL(site.baseUrl).host
 
 const distDir = path.resolve('build')
 const blocksDir = path.join(distDir, 'ipfs')
+const advertDir = path.join(distDir, 'ipni', 'v1', 'ad')
 
 const peerId = await createEd25519PeerId()
 
@@ -45,6 +47,8 @@ export const generate = async () => {
     peerId
   })
 
+  await fs.mkdir(advertDir, { recursive: true });
+
   let entryChunk = new EntryChunk()
   for (const cid of cids) {
     entryChunk.add(cid.multihash.bytes)
@@ -68,8 +72,11 @@ export const generate = async () => {
   const value = await advert.encodeAndSign()
 
   const block = await Block.encode({ value, codec: dagJson, hasher: sha256 })
+  const rootCid = block.cid.toString()
 
   await writeBlock(block)
+
+  await fs.writeFile(path.join(advertDir, 'head'), rootCid)
 
   console.log(`\n✅ Done!`);
   console.log(`🌐 Advertisement CID: ${rootCid}`);
@@ -77,7 +84,7 @@ export const generate = async () => {
 
 export const writeBlock = async (block: BlockView) => {
   let { cid, bytes } = block
-  await fs.writeFile(block.cid.toString(), block.bytes)
+  await fs.writeFile(path.join(advertDir, block.cid.toString()), block.bytes)
 }
 
 generate().catch(console.error)
