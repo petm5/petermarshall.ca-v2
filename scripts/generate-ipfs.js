@@ -55,6 +55,9 @@ const generate = async () => {
 
   await fs.writeFile(path.join(blocksDir, 'root'), rootCid.toString())
 
+  // Empty probing CID
+  await fs.writeFile(path.join(blocksDir, 'bafkqaaa'), '')
+
   console.log(`\n✅ Done!`);
   console.log(`🌐 Root CID: ${rootCid}`);
 }
