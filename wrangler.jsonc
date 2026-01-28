@@ -1,9 +1,6 @@
 {
   "name": "petermarshall-ca",
   "compatibility_date": "2025-05-23",
-  "build": {
-    "command": "npm run build-all"
-  },
   "assets": {
     "directory": "build",
   }
