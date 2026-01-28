@@ -22,6 +22,8 @@ const advertDir = path.join(distDir, 'ipni', 'v1', 'ad')
 const peerId = await createEd25519PeerId()
 
 export const generate = async () => {
+  console.log(`🌌 Generating updated IPNI records`)
+
   const paths = await glob('**', {
     cwd: blocksDir,
     nodir: true,
@@ -30,7 +32,7 @@ export const generate = async () => {
 
   const cids: Array<CID> = paths.map((p) => CID.parse(p.toString()))
 
-  console.log(`📦 Preparing IPNI advertisement for ${cids.length} CIDs...`)
+  console.log(`🚀 Creating advertisement for ${cids.length} CIDs...`)
 
   const context = new Uint8Array([99])
   const previous = null

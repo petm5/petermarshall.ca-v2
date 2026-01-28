@@ -8,10 +8,10 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
-		"generate-ipfs": "node scripts/generate-ipfs.js",
-		"publish-ipfs": "node scripts/publish-ipfs.ts",
-		"publish-ipni": "node scripts/publish-ipni.ts",
-		"build-all": "vite build && node scripts/generate-ipfs.js"
+		"build-ipfs": "node scripts/generate-ipfs.js",
+		"build-ipni": "node scripts/generate-ipni.ts",
+		"build-all": "vite build && node scripts/generate-ipfs.js && node scripts/generate-ipni.ts",
+		"dht-provide": "node scripts/publish-ipfs.ts"
 	},
 	"devDependencies": {
 		"@chainsafe/libp2p-noise": "^17.0.0",
