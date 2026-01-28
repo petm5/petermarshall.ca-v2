@@ -9,7 +9,7 @@ import { tcp } from '@libp2p/tcp'
 import { CID } from 'multiformats/cid'
 import { multiaddr } from '@multiformats/multiaddr'
 import type { Multiaddr } from '@multiformats/multiaddr'
-import path from 'path';
+import path from 'node:path';
 import { glob } from 'glob';
 import site from '../src/lib/site.json' with { type: 'json' };
 
