@@ -4,15 +4,20 @@ import { BlackHoleBlockstore } from 'blockstore-core';
 import fs from 'fs/promises';
 import path from 'path';
 import { glob } from 'glob';
+import site from '../src/lib/site.json' with { type: 'json' };
+
+// Dummy PeerID required for routing
+// TODO: Use actual keypair for IPNI publishing
+const nodePeerId = 'QmWjh6bSiHZZd2pUN17yUu2XaTvMi77EzJbmmgjW2zanVp';
+const nodeMultiaddr = `/dns4/${(new URL(site.baseUrl)).host}/tcp/443/https`;
 
 class RawDirBlockstore extends BlackHoleBlockstore {
-  constructor(blocksDir) {
+  constructor(callback) {
     super()
-    this.blocksDir = blocksDir
+    this.getCallback = callback
   }
   async put(cid, data) {
-    const filename = cid.toString()
-    await fs.writeFile(path.join(this.blocksDir, filename), data);
+    await this.getCallback(cid, data)
     return super.put(cid, data)
   }
 }
@@ -20,11 +25,32 @@ class RawDirBlockstore extends BlackHoleBlockstore {
 const generate = async () => {
   const distDir = path.resolve('build')
   const blocksDir = path.join(distDir, 'ipfs');
-  const blockstore = new RawDirBlockstore(blocksDir);
+  const routingDir = path.join(distDir, 'routing', 'v1', 'providers');
+
+  const blockstore = new RawDirBlockstore(async (cid, data) => {
+    const filename = cid.toString()
+    await fs.writeFile(path.join(blocksDir, filename), data)
+
+    const providerInfo = {
+      Providers: [
+        {
+          Schema: 'peer',
+          ID: nodePeerId,
+          Addrs: [nodeMultiaddr]
+        }
+      ]
+    }
+
+    await fs.writeFile(path.join(routingDir, filename), JSON.stringify(providerInfo))
+  });
 
   console.log('📦 Generating IPFS block store')
 
   await fs.mkdir(blocksDir, { recursive: true });
+  await fs.mkdir(routingDir, { recursive: true });
+
+  console.log(`🔑 Using PeerID: ${nodePeerId}`)
+  console.log(`🕸️ Using multiaddr: ${nodeMultiaddr}`)
 
   const paths = await glob('**/*', {
     cwd: distDir,
