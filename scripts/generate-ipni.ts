@@ -89,7 +89,8 @@ class Advertisement {
     public entryCid: CID,
     public protocol: EntryProtocol,
     public provider: Provider,
-    public context: Uint8Array
+    public context: Uint8Array,
+    public prevCid?: CID
   ) {}
   getProtocolBytes(): Uint8Array {
     switch (this.protocol) {
@@ -106,6 +107,7 @@ class Advertisement {
 
     // Ugly data payload serialization - https://github.com/ipni/go-libipni/blob/afe2d8ea45b86c2a22f756ee521741c8f99675e5/ingest/schema/envelope.go#L84
     const serializedAd = new Uint8Array([
+      ...this.prevCid?.bytes ?? new Uint8Array([]),
       ...this.entryCid.bytes,
       ...new TextEncoder().encode(this.provider.peerId),
       ...new TextEncoder().encode(this.provider.addresses.map(a => a.toString()).join('')),
@@ -125,6 +127,7 @@ class Advertisement {
 
     // IPNI Advertisement - https://github.com/ipni/specs/blob/main/IPNI.md#advertisements
     return {
+      ...(this.prevCid ? { PreviousID: this.prevCid } : {}),
       Provider: this.provider.peerId,
       Addresses: this.provider.addresses,
       Entries: this.entryCid,
@@ -134,7 +137,7 @@ class Advertisement {
       Signature: signature
     }
   }
-  async export() {
+  async export(): Promise<BlockView> {
     const signedAd = await this.encodeAndSign()
     return await Block.encode({ value: signedAd, codec: dagCbor, hasher: sha256 })
   }
