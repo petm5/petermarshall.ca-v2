@@ -182,18 +182,18 @@ export const generate = async () => {
 
   await writeBlock(signedAdBlock)
 
+  console.log(`🚀 Creating advertisement for IPNS record...`)
+
   const ipnsValue = CID.parse((await fs.readFile(path.join(blocksDir, 'root'))).toString())
   const ipnsLifetime = 60 * 60 * 1000 // 1 hour
 
-  console.log(`🔗 Creating IPNS record, valid for ${Math.floor(ipnsLifetime / 1000)} seconds`)
+  console.log(`🔗 IPNS record will be valid for ${Math.floor(ipnsLifetime / 1000)} seconds.`)
 
   // Use the current time as a stateless counter
   const ipnsSequence = Date.now()
 
   const ipnsRecord = await createIPNSRecord(privKey, ipnsValue, ipnsSequence, ipnsLifetime)
   const marshalledRecord = marshalIPNSRecord(ipnsRecord)
-
-  console.log(`🚀 Creating advertisement for IPNS record...`)
 
   // Advertisement requires an empty set of entries
   const ipnsEntryChunk = new EntryChunk()
