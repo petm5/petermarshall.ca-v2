@@ -200,6 +200,9 @@ export const generate = async () => {
   const ipnsEntryBlock = await ipnsEntryChunk.export()
   await writeBlock(ipnsEntryBlock)
 
+  // Concatenate the IPNS record specifier with the record data
+  // https://github.com/ipni/specs/blob/main/IPNI.md#metadata
+  // https://github.com/ipni/go-naam/blob/7319ed2cbb9d46eb560e6423ccd9d9a97874f826/naam.go#L425-L434
   const ipnsMetadata = new Uint8Array([
     ...IPNS_RECORD_PREFIX,
     ...marshalledRecord
