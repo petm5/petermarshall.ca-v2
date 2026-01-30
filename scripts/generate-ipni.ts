@@ -186,7 +186,7 @@ export const generate = async () => {
   console.log(`🚀 Creating advertisement for IPNS record...`)
 
   const ipnsValue = CID.parse((await fs.readFile(path.join(blocksDir, 'root'))).toString())
-  const ipnsLifetime = 60 * 60 * 1000 // 1 hour
+  const ipnsLifetime = 10 * 365 * 24 * 60 * 60 * 1000 // 10 years
 
   console.log(`🔗 IPNS record will be valid for ${Math.floor(ipnsLifetime / 1000)} seconds.`)
 
