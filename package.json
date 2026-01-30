@@ -9,10 +9,10 @@
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"build-ipfs": "node scripts/generate-ipfs.js",
-		"build-ipni": "node scripts/generate-ipni.ts",
-		"build-all": "vite build && node scripts/generate-ipfs.js && node --experimental-strip-types scripts/generate-ipni.ts",
-		"dht-provide": "node --experimental-strip-types scripts/publish-ipfs.ts",
-		"ipni-provide": "node --experimental-strip-types scripts/provide-ipni.ts"
+		"build-ipni": "node --import=tsx scripts/generate-ipni.ts",
+		"build-all": "vite build && node scripts/generate-ipfs.js && node --import=tsx scripts/generate-ipni.ts",
+		"dht-provide": "node --import=tsx scripts/publish-ipfs.ts",
+		"ipni-provide": "node --import=tsx scripts/provide-ipni.ts"
 	},
 	"devDependencies": {
 		"@chainsafe/libp2p-noise": "^17.0.0",
@@ -39,6 +39,7 @@
 		"libp2p": "^3.1.3",
 		"mdsvex": "^0.12.6",
 		"svelte": "^5.0.0",
+		"tsx": "^4.21.0",
 		"varint": "^6.0.0",
 		"vite": "^6.2.6",
 		"vite-imagetools": "^7.1.0"
