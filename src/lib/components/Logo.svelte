@@ -1,11 +1,11 @@
 <script>
-  import logo from '$lib/assets/logo-glow.png?format=avif&w=512';
+  import logo from '$lib/assets/logo-glow.png?format=avif&w=256';
   import { title } from '$lib/site.json';
 </script>
 
 <div class="logo">
   <a href="/">
-    <img alt="Logo" src={logo} />
+    <img alt src={logo} />
     <p>{title}</p>
   </a>
 </div>
@@ -26,7 +26,9 @@
   img {
     display: block;
     margin: 0;
+    width: 36px;
     height: 36px;
     transform: scale(260%);
+    font-size: 0;
   }
 </style>
