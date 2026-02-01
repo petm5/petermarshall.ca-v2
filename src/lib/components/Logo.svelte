@@ -36,7 +36,10 @@
   .image {
     transition: transform .2s ease-out;
   }
-  .logo:hover .image {
-    transform: rotate(30deg);
+  .logo:hover {
+    text-decoration: underline;
+    .image {
+      transform: rotate(30deg);
+    }
   }
 </style>

@@ -97,6 +97,9 @@
   a {
     color: inherit;
     text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   @media (max-width: 750px) {
     .content {
