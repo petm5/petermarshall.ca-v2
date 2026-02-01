@@ -19,9 +19,8 @@
   }
 
   .action {
-    color: black;
+    color: #333;
     font-size: 1rem;
-    font-weight: 600;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -33,7 +32,7 @@
     padding-right: 8px;
     border-radius: 100px;
     box-shadow: 0 0 4px #0001;
-    font-family: sans-serif;
+    font-weight: 600;
   }
 
   @media (max-width: 750px) {

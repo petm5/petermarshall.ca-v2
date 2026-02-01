@@ -23,6 +23,7 @@
     gap: 0.8rem;
     font-size: 1.1rem;
     font-weight: bold;
+    font-family: "Inter";
     cursor: pointer;
   }
   img {

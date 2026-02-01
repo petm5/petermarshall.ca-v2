@@ -11,18 +11,31 @@ html {
   color-scheme: light dark;
 }
 
+@font-face {
+  font-family: "Arimo";
+  src: local("Arimo"), url('$lib/assets/Arimo.woff2') format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: local("Inter"), url('$lib/assets/Inter_24pt-SemiBold.woff2') format("woff2");
+  font-display: swap;
+  font-weight: 600 800;
+}
+
 body {
   --bg-color: light-dark(#f1f4f6, #131415);
   background-color: var(--bg-color);
   color: light-dark(#333, #aab);
   --faded-color: light-dark(#666, #889);
   --link-color: #9ac;
-  font-family: Roboto,sans-serif;
+  font-family: "Arimo", "Liberation Sans", "Arial", sans-serif;
   --layout-spacing: clamp(1rem, 6vw, 6rem);
   --elem-spacing: 2em;
   --side-spacing: clamp(1rem, 5vw, 3rem);
   --navbar-height: 50px;
-  --content-max-width: 75ch;
+  --content-max-width: 48rem;
   padding: 0;
   line-height: 1.5;
   font-size: 16px;
@@ -81,6 +94,7 @@ main > *:first-child img {
   line-height: 1.2;
   color: light-dark(#444, #fffe);
   scroll-margin-top: calc(var(--navbar-height) + 2rem);
+  font-weight: 600;
 }
 
 :is(h2, h3):not(:first-child) {

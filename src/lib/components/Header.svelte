@@ -92,9 +92,9 @@
   }
   li {
     display: inline-block;
-    font-size: .95rem;
-    font-weight: 400;
+    font-size: 1rem;
     margin-left: 1.25rem;
+    font-weight: 550;
   }
   a {
     color: inherit;
@@ -171,7 +171,6 @@
       display: block;
       margin-left: 0;
       padding: 0.6rem;
-      font-weight: bold;
     }
   }
 </style>

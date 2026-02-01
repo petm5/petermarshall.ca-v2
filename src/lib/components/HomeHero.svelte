@@ -115,8 +115,9 @@
         }
         h1 {
           font-size: min(6vw, 3.25rem);
-          font-family: sans-serif;
+          font-family: "Inter", "DejaVu Sans", sans-serif;
           font-weight: 600;
+          line-height: 1.215;
           color: light-dark(#444, #333);
           -webkit-text-fill-color: unset;
           margin-top: 0;
