@@ -92,7 +92,7 @@
   }
   li {
     display: inline-block;
-    font-size: 1rem;
+    font-size: .98rem;
     margin-left: 1.25rem;
     font-weight: 550;
   }
