@@ -2,20 +2,20 @@
   let { items } = $props();
 </script>
 
-<p class="actions">
+<div class="actions">
   {#each items as item}
     {#if item.desc}
       <a class="action" href={item.href}>{item.desc}</a>
     {/if}
   {/each}
-</p>
+</div>
 
 <style>
   .actions {
     display: flex;
     flex-direction: column;
     grid-row-gap: 1em;
-    margin-top: 32px !important;
+    margin-top: 32px;
   }
 
   .action {

@@ -56,9 +56,6 @@
     inset: 0;
     box-shadow: inset 2px 2px 30px -7px rgba(255, 255, 255, 0.1);
   }
-  :global(body:has(.hero)) header {
-    position: fixed;
-  } 
   .content {
     max-width: 80rem;
     width: 100%;
