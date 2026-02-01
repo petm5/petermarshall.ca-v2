@@ -57,7 +57,7 @@
   }
 
   .actions > * + * {
-    color: #aab;
-    background: #20252d;
+    color: light-dark(#424248, #aab);
+    background: light-dark(#e3e3e3, #20252d);
   }
 </style>
