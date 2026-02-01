@@ -38,7 +38,7 @@
     z-index: 2;
     color: light-dark(#333, #dee);
     box-shadow: 0 0 16px #2222, 0 0 3px #2224;
-    background: light-dark(#999a, #20263440);
+    background: light-dark(#eeed, #20263440);
     &::before {
       content: '';
       position: absolute;
@@ -46,7 +46,7 @@
       z-index: 0;
       height: 250%;
       mask-image: linear-gradient(to bottom, black 0% 40%, transparent 40% 100%);
-      backdrop-filter: contrast(0.6) brightness(1.5) saturate(1.5) blur(40px);
+      backdrop-filter: contrast(0.6) brightness(2) saturate(1.5) blur(40px);
       filter: url('$lib/assets/glass-shader.svg#glass');
     }
   }
