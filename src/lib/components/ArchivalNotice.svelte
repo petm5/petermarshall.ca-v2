@@ -30,7 +30,7 @@
       archived = true;
       const ipfsGateway = findGateway();
       if (ipfsGateway) {
-        latestLink = `${window.location.protocol}://${ipfsGateway}${page.url.pathname}`
+        latestLink = `${window.location.protocol}//${ipfsGateway}${page.url.pathname}`
       } else {
         latestLink = `${baseUrl}${page.url.pathname}`
       }
