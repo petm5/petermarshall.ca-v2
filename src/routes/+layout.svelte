@@ -5,6 +5,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import '$lib/styles/style.css';
 	import { title } from '$lib/site.json';
+	import MouseFollower from '$lib/components/MouseFollower.svelte';
 </script>
 
 <svelte:head>
@@ -22,3 +23,5 @@
 </main>
 
 <Footer />
+
+<MouseFollower />

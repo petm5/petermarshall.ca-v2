@@ -35,7 +35,6 @@
   }
 
   input[type=submit] {
-    cursor: pointer;
     font-size: inherit;
     line-height: inherit;
     min-width: unset;
