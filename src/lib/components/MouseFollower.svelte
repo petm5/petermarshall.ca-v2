@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { SpringSimulation } from '$lib/utils/spring-physics';
+  import { beforeNavigate } from '$app/navigation';
 
   let loaded = false;
 
@@ -109,31 +110,37 @@
     }
   }
 
-  const onMouseOver = (e: MouseEvent) => {
-    if (!checkFollowers) return;
+  const grow = () => {
+    mainFollower.animate({
+      "--scale": '3.5'
+    }, {duration: 100, fill: "forwards"})
+    largeFollower.animate({
+      opacity: '0'
+    }, {duration: 100, fill: "forwards"})
+  }
 
-    if (isInteractable(e.target)) {
-      mainFollower.animate({
-        "--scale": '3.5'
-      }, {duration: 100, fill: "forwards"})
-      largeFollower.animate({
-        opacity: '0'
-      }, {duration: 100, fill: "forwards"})
-    }
+  const shrink = () => {
+    mainFollower.animate({
+      "--scale": '1'
+    }, {duration: 100, fill: "forwards"})
+    largeFollower.animate({
+      opacity: '1'
+    }, {duration: 100, delay: 50, fill: "forwards"})
+  }
+
+  const onMouseOver = (e: MouseEvent) => {
+    if (!checkFollowers()) return;
+
+    if (isInteractable(e.target)) grow();
   }
 
   const onMouseOut = (e: MouseEvent) => {
     if (!checkFollowers()) return;
 
-    if (isInteractable(e.target)) {
-      mainFollower.animate({
-        "--scale": '1'
-      }, {duration: 100, fill: "forwards"})
-      largeFollower.animate({
-        opacity: '1'
-      }, {duration: 100, delay: 50, fill: "forwards"})
-    }
+    if (isInteractable(e.target)) shrink();
   }
+
+  beforeNavigate(shrink);
 
   onMount(() => {
     window.addEventListener('mousemove', onMouseMove);
