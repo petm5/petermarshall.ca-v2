@@ -48,6 +48,7 @@
       mask-image: linear-gradient(to bottom, black 0% 40%, transparent 40% 100%);
       backdrop-filter: contrast(0.6) brightness(2) saturate(1.5) blur(40px);
       filter: url('$lib/assets/glass-shader.svg#glass');
+      pointer-events: none;
     }
   }
   @media (prefers-color-scheme: dark) {
