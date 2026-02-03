@@ -1,12 +1,12 @@
 <script>
-  import logo from '$lib/assets/logo-glow.png?format=avif&w=256';
+  import logo from '$lib/assets/logo-glow.png?enhanced&format=avif&w=256;128;64&quality=100';
   import { title } from '$lib/site.json';
 </script>
 
 <a href="/">
   <div class="logo">
     <div class="image">
-      <img alt src={logo} />
+      <enhanced:img alt src={logo} sizes="72px" />
     </div>
     <p>{title}</p>
   </div>

@@ -1,14 +1,14 @@
 <script>
-  import LogotherapyScreenshot from "$lib/assets/Ottawa Institute of Logotherapy Screenshot.webp";
-  import PrayerSpaceScreenshot from "$lib/assets/Catholic Prayer Space Ottawa Screenshot.webp";
+  import LogotherapyScreenshot from "$lib/assets/Ottawa Institute of Logotherapy Screenshot.webp?enhanced&format=webp";
+  import PrayerSpaceScreenshot from "$lib/assets/Catholic Prayer Space Ottawa Screenshot.webp?enhanced&format=webp";
 </script>
 
 # My Projects
 
 ## Ottawa Institute of Logotherapy
 
-<a href="https://logotherapy.ca/"><img src={LogotherapyScreenshot} /></a>
+<a href="https://logotherapy.ca/"><enhanced:img src={LogotherapyScreenshot} sizes="min(48rem, 100vw)" /></a>
 
 ## Catholic Prayer Space Ottawa
 
-<a href="https://catholicprayerspace.ca/"><img src={PrayerSpaceScreenshot} /></a>
+<a href="https://catholicprayerspace.ca/"><enhanced:img src={PrayerSpaceScreenshot} sizes="min(48rem, 100vw)" /></a>

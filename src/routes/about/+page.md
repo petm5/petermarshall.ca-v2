@@ -1,10 +1,10 @@
 <script>
-  import HeaderImage from "$lib/assets/Kanata Technology Park.webp";
+  import HeaderImage from "$lib/assets/Kanata Technology Park.webp?enhanced&format=webp&w=1024;512";
 </script>
 
 # About Me
 
-<img src={HeaderImage} />
+<p><enhanced:img src={HeaderImage} sizes="min(48rem, 100vw)" /></p>
 
 ## Vision
 

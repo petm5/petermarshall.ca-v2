@@ -1,20 +1,11 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
-import { imagetools } from 'vite-imagetools';
+import { enhancedImages } from '@sveltejs/enhanced-img';
 
 export default defineConfig({
 	plugins: [
 		sveltekit(),
-		imagetools({
-			defaultDirectives: (url) => {
-				return new URLSearchParams({
-					w: 800,
-					format: 'avif',
-					effort: 2,
-					quality: 60
-				})
-			}
-		})
+		enhancedImages()
 	],
 	build: {
 		assetsInlineLimit: 0

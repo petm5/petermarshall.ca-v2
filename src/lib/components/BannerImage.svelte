@@ -1,7 +1,7 @@
 <script>
-  import Image from '$lib/assets/banner.jpg';
+  import Image from '$lib/assets/banner.jpg?enhanced&format=avif&w=1024;512';
 </script>
 
 <p>
-  <img alt="Banner" src={Image} />
+  <enhanced:img src={Image} sizes="min(48rem, 100vw)" />
 </p>
