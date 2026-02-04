@@ -64,6 +64,8 @@
     physicsStopTimeout = setTimeout(() => {
       physicsRunning = false;
     }, fadeTime);
+
+    document.body.classList.remove('nocursor');
   }
 
   const onMouseMove = (e: MouseEvent) => {
@@ -86,6 +88,7 @@
         follower.hidden = false;
       }
       hidden = false;
+      document.body.classList.add('nocursor');
     }
 
     mouseX = clientX;
@@ -157,10 +160,8 @@
 {/if}
 
 <style>
-  @media (pointer: fine) {
-    :global(body, a, input, textarea, button) {
-      cursor: none;
-    }
+  :global(body.nocursor, body.nocursor :is(a, input, textarea, button)) {
+    cursor: none;
   }
 
   @property --scale {
