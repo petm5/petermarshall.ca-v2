@@ -6,12 +6,14 @@
   let loaded = false;
 
   let hidden = true;
+  let interactive = false;
 
   let mainFollower: HTMLDivElement;
   let largeFollower: HTMLDivElement;
 
   let physicsRunning = false;
   let physicsStopTimeout: any;
+  let hideTimeout: any;
 
   let mouseX = 0;
   let mouseY = 0;
@@ -31,6 +33,7 @@
   ];
 
   const fadeTime = 300;
+  const idleTime = 1800;
 
   const checkFollowers = () => !!mainFollower && !!largeFollower;
 
@@ -64,8 +67,6 @@
     physicsStopTimeout = setTimeout(() => {
       physicsRunning = false;
     }, fadeTime);
-
-    document.body.classList.remove('nocursor');
   }
 
   const onMouseMove = (e: MouseEvent) => {
@@ -73,6 +74,7 @@
 
     if (!matchMedia('(pointer:fine)').matches) {
       if (!hidden) hideFollowers();
+      document.body.classList.remove('nocursor');
       return;
     }
 
@@ -105,6 +107,9 @@
       physicsRunning = true;
       physicsLoop();
     }
+
+    if (hideTimeout) clearTimeout(hideTimeout);
+    if (!interactive) hideTimeout = setTimeout(hideFollowers, idleTime);
   }
 
   const isInteractable = (e: EventTarget) => {
@@ -136,11 +141,17 @@
   }
 
   const onMouseOver = (e: MouseEvent) => {
-    if (isInteractable(e.target)) grow();
+    if (!isInteractable(e.target)) return;
+
+    interactive = true;
+    grow();
   }
 
   const onMouseOut = (e: MouseEvent) => {
-    if (isInteractable(e.target)) shrink();
+    if (!isInteractable(e.target)) return;
+
+    interactive = false;
+    shrink();
   }
 
   afterNavigate(shrink);
