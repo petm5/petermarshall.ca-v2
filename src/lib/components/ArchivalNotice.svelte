@@ -1,4 +1,4 @@
-<script module>
+<script module lang="ts">
   declare const BUILD_DATE: string;
 </script>
 
