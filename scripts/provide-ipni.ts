@@ -3,7 +3,8 @@ import path from 'node:path'
 import { CID } from 'multiformats/cid'
 import { peerIdFromString } from '@libp2p/peer-id'
 
-import { announceIpni } from '../src/lib/ipfs/ipni-announcement'
+import { createIpniAnnouncement } from '../src/lib/ipfs/ipni-announcement'
+import { sendIpniAnnouncement } from '../src/lib/ipfs/ipni-announcement-sender'
 import { provideIpnsRecord } from '../src/lib/ipfs/delegated-router-provide-ipns'
 
 import site from '../src/lib/site.json' with { type: 'json' };
@@ -21,6 +22,8 @@ const peerId = peerIdFromString(await fs.readFile(path.join(advertDir, 'id'), { 
 
 const ipnsData = (await fs.readFile(path.join(advertDir, 'ipns'))).buffer
 
-await announceIpni({ advertCid, peerId, webHost, indexerHost }).catch(console.error)
+const ipniAnnouncement = createIpniAnnouncement({ advertCid, peerId, webHost })
 
-await provideIpnsRecord({ ipnsData, ipnsName: peerId.toCID(), delegatedRouterHost })
+await sendIpniAnnouncement(ipniAnnouncement, indexerHost).catch(console.error)
+
+await provideIpnsRecord({ ipnsData, ipnsName: peerId.toCID(), delegatedRouterHost }).catch(console.error)

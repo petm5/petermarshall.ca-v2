@@ -2,18 +2,18 @@ import { CID } from 'multiformats/cid'
 import { multiaddr } from '@multiformats/multiaddr'
 import { base64 } from "multiformats/bases/base64"
 import type { PeerId } from '@libp2p/interface'
+import type { IpniAnnouncement } from './ipni-announcement-sender'
 
-interface ipniAnnouncementParams {
+interface IpniAnnouncementBuilderParams {
   advertCid: CID,
   peerId: PeerId,
   webHost: URL,
-  indexerHost: URL
 }
 
-export const announceIpni = async (params: ipniAnnouncementParams) => {
-  const { advertCid, peerId, webHost, indexerHost } = params;
+export const createIpniAnnouncement = (params: IpniAnnouncementBuilderParams): IpniAnnouncement => {
+  const { advertCid, peerId, webHost } = params;
 
-  console.log(`🎁 Announcing IPNI advertisement`)
+  console.log(`🎁 Creating IPNI announcement`)
 
   const protocolFragment = getProtocolFragment(webHost)
 
@@ -23,7 +23,7 @@ export const announceIpni = async (params: ipniAnnouncementParams) => {
   ]
 
   console.log('🌐 Advertisement CID:', advertCid.toString())
-  console.log('🌐 Announcing multiaddrs:', announceAddrs)
+  console.log('🌐 Provided by multiaddrs:', announceAddrs)
 
   const addrs = announceAddrs.map((a) => Buffer.from(multiaddr(a).bytes).toString('base64'))
 
@@ -34,19 +34,11 @@ export const announceIpni = async (params: ipniAnnouncementParams) => {
     Addrs: addrs
   })
 
-  const response = await fetch(`${indexerHost.protocol}//${indexerHost.host}/announce`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: payload
-  })
-
-  if (response.status != 204) {
-    return console.warn('\n❌ Got error:', response.status, await response.text())
-  }
-
   console.log('\n✅ Done!')
+
+  return {
+    payload
+  }
 }
 
 const getProtocolFragment = (host: URL): string => {
