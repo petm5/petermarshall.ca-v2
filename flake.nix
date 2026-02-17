@@ -2,6 +2,7 @@
   description = "Peter Marshall's homepage";
 
   inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/25.11";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
