@@ -32,3 +32,5 @@
 /ipni/v1/ad/head
   ! Cache-Control
   Cache-Control: no-cache, no-store, must-revalidate
+  ! Content-Type
+  Content-Type: application/json
