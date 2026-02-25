@@ -38,29 +38,25 @@ export class SpringSimulation {
     const distX = this.currentX - targetX;
     const distY = this.currentY - targetY;
 
-    // Derivative term
-    const relativeVelocityX = this.velocityX - targetVelocityX;
-    const relativeVelocityY = this.velocityY - targetVelocityY;
-
     // Hooke's Law
     const springForceX = -this.stiffness * distX;
     const springForceY = -this.stiffness * distY;
 
-    // Air Resistance
-    const dragX = this.velocityX * this.drag;
-    const dragY = this.velocityY * this.drag;
+    // Derivative term
+    const relativeVelocityX = this.velocityX - targetVelocityX;
+    const relativeVelocityY = this.velocityY - targetVelocityY;
 
     // Derivative term's damping
     const dampingX = relativeVelocityX * this.derivative;
     const dampingY = relativeVelocityY * this.derivative;
 
     // Acceleration
-    const accelX = springForceX - dragX - dampingX;
-    const accelY = springForceY - dragY - dampingY;
+    const accelX = springForceX - dampingX;
+    const accelY = springForceY - dampingY;
 
-    // Integrate acceleration into velocity
-    this.velocityX += accelX * deltaTime;
-    this.velocityY += accelY * deltaTime;
+    // Integrate acceleration into velocity and divide by friction
+    this.velocityX = (this.velocityX + accelX * deltaTime) / (1 + this.drag * deltaTime);
+    this.velocityY = (this.velocityY + accelY * deltaTime) / (1 + this.drag * deltaTime);
 
     const accelerationMagnitude = Math.hypot(accelX, accelY);
     const velocityMagnitude = Math.hypot(this.velocityX, this.velocityY);

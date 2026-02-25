@@ -8,8 +8,7 @@
   let hidden = true;
   let interactive = false;
 
-  let mainFollower: HTMLDivElement;
-  let largeFollower: HTMLDivElement;
+  let follower: HTMLDivElement;
 
   let physicsRunning = false;
   let physicsStopTimeout: any;
@@ -18,24 +17,19 @@
   let mouseX = 0;
   let mouseY = 0;
 
-  const mainSimulation = new SpringSimulation(0.4, 0.6, 0.4);
-  const largeSimulation = new SpringSimulation(0.03, 0.1, 0.2);
+  const simulation = new SpringSimulation(0.5, -0.3, 3);
 
   $: followers = [
     {
-      follower: mainFollower,
-      simulation: mainSimulation
-    },
-    {
-      follower: largeFollower,
-      simulation: largeSimulation
+      follower: follower,
+      simulation: simulation
     }
   ];
 
   const fadeTime = 300;
   const idleTime = 1800;
 
-  const checkFollowers = () => !!mainFollower && !!largeFollower;
+  const checkFollowers = () => !!follower;
 
   const physicsLoop = () => {
     if (!checkFollowers()) return;
@@ -74,7 +68,6 @@
 
     if (!matchMedia('(pointer:fine)').matches) {
       if (!hidden) hideFollowers();
-      document.body.classList.remove('nocursor');
       return;
     }
 
@@ -90,7 +83,6 @@
         follower.hidden = false;
       }
       hidden = false;
-      document.body.classList.add('nocursor');
     }
 
     mouseX = clientX;
@@ -121,23 +113,17 @@
   const grow = () => {
     if (!checkFollowers()) return;
 
-    mainFollower.animate({
+    follower.animate({
       "--scale": '3.5'
-    }, {duration: 100, fill: "forwards"})
-    largeFollower.animate({
-      opacity: '0'
     }, {duration: 100, fill: "forwards"})
   }
 
   const shrink = () => {
     if (!checkFollowers()) return;
 
-    mainFollower.animate({
+    follower.animate({
       "--scale": '1'
     }, {duration: 100, fill: "forwards"})
-    largeFollower.animate({
-      opacity: '1'
-    }, {duration: 100, delay: 50, fill: "forwards"})
   }
 
   const onMouseOver = (e: MouseEvent) => {
@@ -166,15 +152,10 @@
 </script>
 
 {#if loaded}
-  <div class="mouse-follower" bind:this={largeFollower} hidden></div>
-  <div class="mouse-follower small" bind:this={mainFollower} hidden></div>
+  <div class="mouse-follower small" bind:this={follower} hidden></div>
 {/if}
 
 <style>
-  :global(body.nocursor, body.nocursor :is(a, input, textarea, button)) {
-    cursor: none;
-  }
-
   @property --scale {
     syntax: '<number>';
     initial-value: 1;
@@ -183,8 +164,8 @@
 
   .mouse-follower {
     position: fixed;
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 0.8rem;
+    height: 0.8rem;
     --scale: 1;
     transform: translate(-50%, -50%) scale(var(--scale));
     z-index: 5;
@@ -192,12 +173,7 @@
     user-select: none;
     opacity: 0;
     border-radius: 100%;
-    background: light-dark(#9992, #5556);
-    &.small {
-      width: 0.8rem;
-      height: 0.8rem;
-      backdrop-filter: contrast(1.2) brightness(1.3) saturate(0.8) invert(1);
-      background: light-dark(#fff6, #eee2);
-    }
+    backdrop-filter: contrast(1.2) brightness(1.3) saturate(0.8) invert(1);
+    background: light-dark(#fff6, #eee2);
   }
 </style>
