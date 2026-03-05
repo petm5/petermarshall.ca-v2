@@ -8,8 +8,6 @@ import type { BlockView } from 'multiformats/block/interface'
 import { privateKeyFromRaw, generateKeyPair } from '@libp2p/crypto/keys'
 import { peerIdFromPrivateKey } from '@libp2p/peer-id'
 
-import { createIPNSRecord, marshalIPNSRecord } from 'ipns'
-
 import { Advertisement, AdvertisementHead, EntryChunk, Provider, Protocol, CHUNK_THRESHOLD } from 'js-ipni'
 
 import site from '../src/lib/site.json' with { type: 'json' }
@@ -36,7 +34,6 @@ const privKey = await loadKey()
 const peerId = peerIdFromPrivateKey(privKey)
 
 const IPFS_CONTEXT = new TextEncoder().encode('/ipfs')
-const IPNS_CONTEXT = new TextEncoder().encode('/ipni/naam')
 
 export const generate = async () => {
   console.log(`🌌 Generating updated IPNI records`)
@@ -88,47 +85,10 @@ export const generate = async () => {
 
   await writeBlock(signedAdBlock)
 
-  console.log(`🚀 Creating advertisement for IPNS record...`)
-
-  const ipnsValue = CID.parse((await fs.readFile(path.join(blocksDir, 'root'))).toString())
-  const ipnsLifetime = 10 * 365 * 24 * 60 * 60 * 1000 // 10 years
-
-  console.log(`🔗 IPNS record will be valid for ${Math.floor(ipnsLifetime / 1000)} seconds.`)
-
-  // Use the current time as a stateless counter
-  const ipnsSequence = Date.now()
-
-  const ipnsRecord = await createIPNSRecord(privKey, ipnsValue, ipnsSequence, ipnsLifetime)
-
-  // Returns raw protobuf with no length prefix
-  const marshalledRecord = marshalIPNSRecord(ipnsRecord)
-
-  const ipnsEntryChunk = new EntryChunk()
-  ipnsEntryChunk.add(privKey.publicKey.toMultihash().bytes)
-
-  const ipnsEntryBlock = await ipnsEntryChunk.export()
-  await writeBlock(ipnsEntryBlock)
-
-  const ipnsProvider = new Provider({
-    privateKey: privKey,
-    addresses,
-    protocol: Protocol.IpnsRecord,
-    metadata: marshalledRecord,
-  })
-
-  const signedIpnsAdBlock = await new Advertisement({
-    peerId: peerId.toString(),
-    entryCid: ipnsEntryBlock.cid,
-    provider: ipnsProvider,
-    context: IPNS_CONTEXT,
-    prevCid: signedAdBlock.cid
-  }).export()
-
-  const adCid = signedIpnsAdBlock.cid.toString()
-  await writeBlock(signedIpnsAdBlock)
+  const adCid = signedAdBlock.cid.toString()
 
   const signedHeadBlock = await new AdvertisementHead({
-    headCid: signedIpnsAdBlock.cid,
+    headCid: signedAdBlock.cid,
     privateKey: privKey
   }).export()
 
@@ -137,8 +97,6 @@ export const generate = async () => {
   await fs.writeFile(path.join(advertDir, '_ad'), adCid)
 
   await fs.writeFile(path.join(advertDir, '_id'), peerId.toString())
-
-  await fs.writeFile(path.join(advertDir, '_ipns'), marshalledRecord)
 
   console.log(`\n✅ Done!`);
   console.log(`🌐 Advertisement CID: ${adCid}`);
