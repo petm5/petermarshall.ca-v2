@@ -21,3 +21,5 @@ const peerId = peerIdFromString(await fs.readFile(path.join(advertDir, '_id'), {
 const ipniAnnouncement = createIpniAnnouncement({ advertCid, peerId, webHost })
 
 await sendIpniAnnouncement(ipniAnnouncement, indexerHost).catch(console.error)
+
+console.log('✅ Done!')
