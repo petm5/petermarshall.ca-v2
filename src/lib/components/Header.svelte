@@ -38,12 +38,7 @@
     z-index: 2;
     color: light-dark(#333, #dee);
     box-shadow: 0 0 16px #2222, 0 0 3px #2224;
-    background: light-dark(#eee, #101217);
-  }
-  @media (prefers-color-scheme: dark) {
-    header {
-      box-shadow: 0 0 4px #0002, 0 0 30px 0 #0006, 0 0 0 1px #333;
-    }
+    background: light-dark(#eee, #181a1d);
   }
   .content {
     max-width: 80rem;
@@ -137,13 +132,7 @@
       flex-direction: column;
       padding: 1.8rem 1.4rem;
       gap: 0.4rem;
-      background: light-dark(#dddd, #3334);
-      backdrop-filter: contrast(0.7) brightness(1.3) saturate(1.5) blur(40px);
-      box-shadow: 0 1.5rem 1.5rem -0.75rem #2222;
-      @media (prefers-color-scheme: dark) {
-        backdrop-filter: contrast(0.9) brightness(0.7) saturate(1.5) blur(40px);
-        box-shadow: 0px 0px 1.6rem #0004 inset, 0 1px 1px 0 #fff4;
-      }
+      background: light-dark(#eee, #222);
     }
     nav, ul {
       display: contents;
