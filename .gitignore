@@ -27,3 +27,5 @@ result*
 
 # Wrangler
 /dist
+
+.direnv
