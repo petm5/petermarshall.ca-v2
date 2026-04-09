@@ -38,7 +38,9 @@
     z-index: 2;
     color: light-dark(#333, #dee);
     box-shadow: 0 0 16px #2222, 0 0 3px #2224;
-    background: light-dark(#eee, #181a1d);
+    background: light-dark(#eeeb, #181a1dd0);
+    backdrop-filter: blur(6px);
+    will-change: transform;
   }
   .content {
     max-width: 80rem;
