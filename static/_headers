@@ -34,3 +34,6 @@
   Cache-Control: no-cache, no-store, must-revalidate
   ! Content-Type
   Content-Type: application/json
+
+/.well-known/nostr.json
+  Access-Control-Allow-Origin: *
